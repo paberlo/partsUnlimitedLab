@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class MongoDBProperties
 {
     private String host = "localhost";
+/**if in production or swarm mode, a file in root directory of Tomcat si needed with mongo service name or ip.*/
     private String database = "ordering";
 
     public String getHost()
