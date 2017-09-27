@@ -19,7 +19,6 @@ after_success:
   - export REPO=partsunlimitedmrplab
   
   - cd $TRAVIS_BUILD_DIR
-  
   - export TAG=ordering
   - ls -l
   - docker build -t $REPO/$TAG docker/Ordering
