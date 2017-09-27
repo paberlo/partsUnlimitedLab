@@ -22,11 +22,10 @@ after_success:
   
   - export TAG=ordering
   - docker build -t $REPO/$TAG docker/Ordering
-  #- docker tag $REPO/$TAG paberlo/$REPO:$TAG
-  #- docker push paberlo/$REPO:$TAG
+  - docker tag $REPO/$TAG paberlo/$REPO:$TAG
+  - docker push paberlo/$REPO:$TAG
   
- # - cd $TRAVIS_BUILD_DIR/src/Clients
- # - export TAG=web
- # - docker build -f Dockerfile -t $REPO/$TAG
- # - docker tag $REPO/$TAG paberlo/$REPO:$TAG
- # - docker push paberlo/$REPO:$TAG
+  - export TAG=web
+  - docker build -t $REPO/$TAG docker/Clients
+  - docker tag $REPO/$TAG paberlo/$REPO:$TAG
+  - docker push paberlo/$REPO:$TAG
