@@ -9,8 +9,8 @@ script:
  # - ./gradlew build
   - cd  $TRAVIS_BUILD_DIR/src/Backend/OrderService
   - ./gradlew build test
-  #- cd  $TRAVIS_BUILD_DIR/src/Clients
-  #- ./gradlew build
+ - cd  $TRAVIS_BUILD_DIR/src/Clients
+ - ./gradlew build
 
 #build docker image and upload it to docker hub
 #env credentials are created in travs-ci.or 
