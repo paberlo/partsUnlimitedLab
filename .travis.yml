@@ -18,12 +18,10 @@ after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
   - export REPO=partsunlimitedmrplab
   
-  - cd $TRAVIS_BUILD_DIR/builds
-  - ls -l
+  - cd $TRAVIS_BUILD_DIR
   
-  - cd $TRAVIS_BUILD_DIR/docker/Ordering
   - export TAG=ordering
-  - docker build -f Dockerfile -t $REPO/$TAG
+  - docker build -t $REPO/$TAG docker/Ordering
   #- docker tag $REPO/$TAG paberlo/$REPO:$TAG
   #- docker push paberlo/$REPO:$TAG
   
