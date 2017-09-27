@@ -21,9 +21,9 @@ after_success:
   - cd $TRAVIS_BUILD_DIR/builds
   - ls -l
   
-  #- cd $TRAVIS_BUILD_DIR/src/Backend/OrderService
-  #- export TAG=ordering
-  #- docker build -f Dockerfile -t $REPO/$TAG
+  - cd $TRAVIS_BUILD_DIR/docker/Ordering
+  - export TAG=ordering
+  - docker build -f Dockerfile -t $REPO/$TAG
   #- docker tag $REPO/$TAG paberlo/$REPO:$TAG
   #- docker push paberlo/$REPO:$TAG
   
