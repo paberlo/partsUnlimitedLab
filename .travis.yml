@@ -19,7 +19,7 @@ deploy:
      - '$TRAVIS_BUILD_DIR/src/Backend/OrderService/build/libs/ordering*'
   skip_cleanup: true  
   on:
-    branch: master #deploy only if branch is master
+    tags: trye #deploy only if push in on a commit tagged
 #build docker image and upload it to docker hub
 #env credentials are created in travs-ci.or 
 #after_success:
