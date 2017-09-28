@@ -21,7 +21,8 @@ deploy:
   file:
     -'$TRAVIS_BUILD_DIR/src/Clients/build/libs/mrp*'
     -'$TRAVIS_BUILD_DIR/src/Backend/OrderService/build/libs/ordering*'
-   skip_cleanup: true
+  skip_cleanup: true
+   
 #  on:
 #    tags
 #build docker image and upload it to docker hub
