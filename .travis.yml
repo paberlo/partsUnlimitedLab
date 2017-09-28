@@ -21,8 +21,8 @@ deploy:
   #file_glob: true
   #file: builds/*
   skip_cleanup: true
-  on:
-    tags
+#  on:
+#    tags
 #build docker image and upload it to docker hub
 #env credentials are created in travs-ci.or 
 #after_success:
