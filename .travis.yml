@@ -8,7 +8,10 @@ script:
   - ./gradlew build test
   - cd  $TRAVIS_BUILD_DIR/src/Clients
   - ./gradlew build
-
+  
+branches:
+  except:
+    - /^untagged\..*/
   
 deploy: 
   provider: releases # git hub releases section 
