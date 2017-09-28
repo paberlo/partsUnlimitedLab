@@ -10,10 +10,6 @@ script:
   - ./gradlew build
 
   
-branches:
-  only:
-  - master
-	
 deploy: 
   provider: releases # git hub releases section 
   api_key:
