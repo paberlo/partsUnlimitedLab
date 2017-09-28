@@ -9,6 +9,11 @@ script:
   - cd  $TRAVIS_BUILD_DIR/src/Clients
   - ./gradlew build
 
+  
+branches:
+  except:
+    - /^v[0-9]/
+	
 deploy:
   provider: releases # git hub releases section
   api_key:
