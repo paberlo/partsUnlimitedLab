@@ -15,7 +15,7 @@ branches:
   - master
 	
 deploy:
-  provider: releases # git hub releases section
+  provider: releases # git hub releases section 
   api_key:
     secure: "$API_KEY"
   file_glob: true # this allows for wildcards in file names
