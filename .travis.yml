@@ -11,8 +11,8 @@ script:
 
   
 branches:
-  except:
-    - /^v[0-9]/
+  only:
+  - master
 	
 deploy:
   provider: releases # git hub releases section
