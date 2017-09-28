@@ -10,7 +10,7 @@ script:
   - ./gradlew build
 
   
-#######DEPLOY RELEASES IN GIT HUB#######
+#######DEPLOY RELEASES IN GIT HUB if wished#######
 # due to a tiny error in travis, after deploying to git hub, 
 #this creates an untagged commit, which triggers another unncessary build  
 #branches:
@@ -29,13 +29,11 @@ script:
 #  on: 
 #    tags: master #deploy only when push in from master
 ##################################################	
-	
-	
+
 #build docker image and upload it to docker hub
 #env credentials are created in travs-ci.or 
 after_success:
-   skip_cleanup: true  
-   - cp $TRAVIS_BUILD_DIR/src/Clients/build/libs/mrp* $TRAVIS_BUILD_DIR/docker/Ordering/drop/
+   - cp $TRAVIS_BUILD_DIR/src/Clients/build/libs/mrp.war $TRAVIS_BUILD_DIR/docker/Ordering/drop/mrp.war
    - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
    - export REPO=partsunlimitedmrplab
    - export TAG=ordering
