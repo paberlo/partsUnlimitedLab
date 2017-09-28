@@ -10,23 +10,35 @@ script:
  # - ./gradlew build
   - cd  $TRAVIS_BUILD_DIR/src/Backend/OrderService
   - ./gradlew build test
-  - cd  $TRAVIS_BUILD_DIR/src/Clients
-  - ./gradlew build
+#  - cd  $TRAVIS_BUILD_DIR/src/Clients
+#  - ./gradlew build
 
+  
+deploy:
+  provider: releases
+  api_key:
+    secure: "$API_KEY"
+  file: 'builds/ordering-service-0.1.0'
+  #file_glob: true
+  #file: builds/*
+  skip_cleanup: true
+  on:
+    tags
+	
 #build docker image and upload it to docker hub
 #env credentials are created in travs-ci.or 
-after_success:
-  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-  - export REPO=partsunlimitedmrplab
-  - cd $TRAVIS_BUILD_DIR
-  - export TAG=ordering
-  
-  - cd builds
-  - ls -l
-  - docker build -t $REPO/$TAG docker/Ordering
-  - docker tag $REPO/$TAG paberlo/$REPO:$TAG
-  - docker push paberlo/$REPO:$TAG
-  - export TAG=web
-  - docker build -t $REPO/$TAG docker/Clients
-  - docker tag $REPO/$TAG paberlo/$REPO:$TAG
-  - docker push paberlo/$REPO:$TAG
+#after_success:
+#  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+#  - export REPO=partsunlimitedmrplab
+#  - cd $TRAVIS_BUILD_DIR
+#  - export TAG=ordering
+#  
+#  - cd builds
+#  - ls -l
+#  - docker build -t $REPO/$TAG docker/Ordering
+#  - docker tag $REPO/$TAG paberlo/$REPO:$TAG
+#  - docker push paberlo/$REPO:$TAG
+#  - export TAG=web
+#  - docker build -t $REPO/$TAG docker/Clients
+#  - docker tag $REPO/$TAG paberlo/$REPO:$TAG
+#  - docker push paberlo/$REPO:$TAG
