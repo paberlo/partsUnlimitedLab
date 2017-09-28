@@ -7,17 +7,17 @@ before_script:
 script: 
  # - cd  $TRAVIS_BUILD_DIR/src/Backend/IntegrationService
  # - ./gradlew build
-  - cd  $TRAVIS_BUILD_DIR/src/Backend/OrderService
-  - ./gradlew build test
-#  - cd  $TRAVIS_BUILD_DIR/src/Clients
-#  - ./gradlew build
+ # - cd  $TRAVIS_BUILD_DIR/src/Backend/OrderService
+ # - ./gradlew build test
+  - cd  $TRAVIS_BUILD_DIR/src/Clients
+  - ./gradlew build
 
 
 deploy:
   provider: releases
   api_key:
     secure: "$API_KEY"
-  file: 'builds/ordering-service-0.1.0'
+  file: 'builds/mrp.war'
   #file_glob: true
   #file: builds/*
   skip_cleanup: true
