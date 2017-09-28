@@ -30,19 +30,19 @@ script:
 #    tags: master #deploy only when push in from master
 ##################################################	
 
-#build docker image and upload it to docker hub
+#build docker images with builds and upload them to docker hub
 #env credentials are created in travs-ci.or 
 after_success:
    - cp $TRAVIS_BUILD_DIR/src/Clients/build/libs/*.war $TRAVIS_BUILD_DIR/docker/Clients/drop/
    - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
    - export REPO=partsunlimitedmrplab
-   - export TAG=ordering
+   - export TAG=web
    - docker build -t $REPO/$TAG $TRAVIS_BUILD_DIR/docker/Clients
    - docker tag $REPO/$TAG paberlo/$REPO:$TAG
    - docker push paberlo/$REPO:$TAG
    
    - cp $TRAVIS_BUILD_DIR/src/Backend/OrderService/build/libs/ordering* $TRAVIS_BUILD_DIR/docker/Ordering/drop/
-   - export TAG=web
+   - export TAG=ordering
    - docker build -t $REPO/$TAG $TRAVIS_BUILD_DIR/docker/Ordering
    - docker tag $REPO/$TAG paberlo/$REPO:$TAG
    - docker push paberlo/$REPO:$TAG
