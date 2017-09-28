@@ -1,4 +1,3 @@
-
 language: java
 jdk: oraclejdk8
 before_script:
@@ -13,7 +12,7 @@ script:
 #  - cd  $TRAVIS_BUILD_DIR/src/Clients
 #  - ./gradlew build
 
-  
+
 deploy:
   provider: releases
   api_key:
@@ -24,7 +23,6 @@ deploy:
   skip_cleanup: true
   on:
     tags
-	
 #build docker image and upload it to docker hub
 #env credentials are created in travs-ci.or 
 #after_success:
