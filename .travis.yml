@@ -8,33 +8,38 @@ script:
   - ./gradlew build test
   - cd  $TRAVIS_BUILD_DIR/src/Clients
   - ./gradlew build
+
   
-branches:
-  except:
-    - /^untagged\..*/
-  
-deploy: 
-  provider: releases # git hub releases section 
-  api_key:
-    secure: "$API_KEY"
-  file_glob: true # this allows for wildcards in file names
-  file:
-     - '$TRAVIS_BUILD_DIR/src/Clients/build/libs/mrp*'
-     - '$TRAVIS_BUILD_DIR/src/Backend/OrderService/build/libs/ordering*'
-  skip_cleanup: true  
-  on: 
-    tags: master #deploy only when push in from master
+#######DEPLOY RELEASES IN GIT HUB#######
+# due to a tiny error in travis, after deploying to git hub, 
+#this creates an untagged commit, which triggers another unncessary build  
+#branches:
+#  except:
+#    - /^untagged\..*/
+#  
+#deploy: 
+#  provider: releases # store built fuiles in git hub releases section 
+#  api_key:
+#    secure: "$API_KEY" #key created in git hub, and variable stored in my travis-ci.org account
+#  file_glob: true # this allows for wildcards in file names
+#  file:
+#     - '$TRAVIS_BUILD_DIR/src/Clients/build/libs/mrp*'
+#     - '$TRAVIS_BUILD_DIR/src/Backend/OrderService/build/libs/ordering*'
+#  skip_cleanup: true  
+#  on: 
+#    tags: master #deploy only when push in from master
+##################################################	
+	
+	
 #build docker image and upload it to docker hub
 #env credentials are created in travs-ci.or 
-#after_success:
-#  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-#  - export REPO=partsunlimitedmrplab
-#  - cd $TRAVIS_BUILD_DIR
-#  - export TAG=ordering
-#  
-#  - cd builds
-#  - ls -l
-#  - docker build -t $REPO/$TAG docker/Ordering
+after_success:
+   skip_cleanup: true  
+   - cp $TRAVIS_BUILD_DIR/src/Clients/build/libs/mrp* $TRAVIS_BUILD_DIR/docker/Ordering/drop/
+   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+   - export REPO=partsunlimitedmrplab
+   - export TAG=ordering
+   - docker build -t $REPO/$TAG docker/Ordering
 #  - docker tag $REPO/$TAG paberlo/$REPO:$TAG
 #  - docker push paberlo/$REPO:$TAG
 #  - export TAG=web
