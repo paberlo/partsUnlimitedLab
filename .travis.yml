@@ -14,7 +14,7 @@ branches:
   only:
   - master
 	
-deploy:
+deploy: 
   provider: releases # git hub releases section 
   api_key:
     secure: "$API_KEY"
