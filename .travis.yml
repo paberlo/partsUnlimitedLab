@@ -33,16 +33,16 @@ script:
 #build docker image and upload it to docker hub
 #env credentials are created in travs-ci.or 
 after_success:
-   - cp -f $TRAVIS_BUILD_DIR/src/Clients/build/libs/mrp.war $TRAVIS_BUILD_DIR/docker/Clients/drop/mrp.war
-   - cd $TRAVIS_BUILD_DIR/docker/Clients
-   - ls -l
+   - cp $TRAVIS_BUILD_DIR/src/Clients/build/libs/*.war $TRAVIS_BUILD_DIR/docker/Clients/drop/
    - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
    - export REPO=partsunlimitedmrplab
    - export TAG=ordering
-   - docker build -t $REPO/$TAG docker/Clients
+   - docker build -t $REPO/$TAG $TRAVIS_BUILD_DIR/docker/Clients
    - docker tag $REPO/$TAG paberlo/$REPO:$TAG
    - docker push paberlo/$REPO:$TAG
-#  - export TAG=web
-#  - docker build -t $REPO/$TAG docker/Clients
-#  - docker tag $REPO/$TAG paberlo/$REPO:$TAG
-#  - docker push paberlo/$REPO:$TAG
+   
+   - cp $TRAVIS_BUILD_DIR/src/Backend/OrderService/build/libs/ordering* $TRAVIS_BUILD_DIR/docker/Ordering/drop/
+   - export TAG=web
+   - docker build -t $REPO/$TAG $TRAVIS_BUILD_DIR/docker/Ordering
+   - docker tag $REPO/$TAG paberlo/$REPO:$TAG
+   - docker push paberlo/$REPO:$TAG
