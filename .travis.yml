@@ -20,8 +20,7 @@ deploy:
   file_glob: true # this allows for wildcards in file names
   file:
      - '$TRAVIS_BUILD_DIR/src/Clients/build/libs/mrp*'
-#    - '$TRAVIS_BUILD_DIR/src/Clients/build/libs/mrp*'
-#    -'$TRAVIS_BUILD_DIR/src/Backend/OrderService/build/libs/ordering*'
+     - '$TRAVIS_BUILD_DIR/src/Backend/OrderService/build/libs/ordering*'
   skip_cleanup: true   
 #  on:
 #    tags
