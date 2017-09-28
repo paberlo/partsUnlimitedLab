@@ -17,7 +17,7 @@ deploy:
   provider: releases
   api_key:
     secure: "$API_KEY"
-  file: 'builds/mrp.war'
+  file: '$TRAVIS_BUILD_DIR/src/Clients/build/libs/mrp.war'
   #file_glob: true
   #file: builds/*
   skip_cleanup: true
