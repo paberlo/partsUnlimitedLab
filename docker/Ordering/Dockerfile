@@ -13,6 +13,6 @@ COPY drop/application.properties application.properties
 
 EXPOSE 8080
 
-#CMD ["ls", "-l", "usr/local/app"]
-#CMD ["sh", "usr/local/app/run.sh"]
-ENTRYPOINT sh usr/local/app/run.sh
+#When heroku deploys this image, it needs a CMD command, it does not accept ENTRYPOINT
+#ENTRYPOINT sh usr/local/app/run.sh
+CMD ["sh", "usr/local/app/run.sh"]
