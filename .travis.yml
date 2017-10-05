@@ -5,7 +5,7 @@ services:
 before_install:
   - docker pull paberlo/gradlefinal
   - docker run -it -d --name build paberlo/gradlefinal
-  - docker exec build git clone https://github.com/paberlo/partsUnlimitedLab/tree/master/src/Clients /home/gradle/repo/
+  - docker exec build git clone https://github.com/paberlo/partsUnlimitedLab.git /home/gradle/repo/
 script: 
   - docker exec build cd /home/gradle/repo/src/Clients/
   - docker exec build ./gradlew build
