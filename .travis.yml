@@ -9,5 +9,5 @@ before_install:
   - docker exec build  cp -a temp/. home/gradle/repo/ #cannot git in an existing fold, so git and then copy
  
 script: 
-  - docker exec build bash -c "cd home/gradle/repo/src/Clients/ && ./gradlew build"
-  - docker exec build bash -c "cd home/gradle/repo/src/Backend/OrderService/ && ./gradlew build"
+  - docker exec build bash -c "cd home/gradle/repo/src/Clients/ && ./gradlew --gradle-user-home=/home/gradle/depends/ build"
+  - docker exec build bash -c "cd home/gradle/repo/src/Backend/OrderService/ && ./gradlew --gradle-user-home=/home/gradle/depends/ build"
