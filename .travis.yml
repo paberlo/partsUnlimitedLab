@@ -1,4 +1,4 @@
-sudo: required #el sudo hace el arranque mas lento, hace falta??
+sudo: required #sudo hace el arranque mas lento, hace falta??
 language: java
 services:
  - docker
