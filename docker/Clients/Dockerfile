@@ -12,4 +12,4 @@ EXPOSE 8080
 #ENTRYPOINT catalina.sh run
 #When heroku deploys this image, it needs a CMD command, it does not accept ENTRYPOINT
 #CMD ["catalina.sh", "run"]
-CDM ["java","-jar","/usr/local/tomcat/webapps/webapp-runner.jar","/usr/local/tomcat/webapps/*.war" ]
+CMD ["java","-jar","/usr/local/tomcat/webapps/webapp-runner.jar","/usr/local/tomcat/webapps/*.war" ]
