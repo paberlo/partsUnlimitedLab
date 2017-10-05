@@ -1,0 +1,13 @@
+
+language: java
+services:
+ - docker
+before_install:
+  - docker pull paberlo/gradlefinal
+  - docker run -it -d --name build paberlo/gradlefinal
+  - docker exec build git clone https://github.com/paberlo/partsUnlimitedLab.git temp/
+  - docker exec build  cp -a temp/. home/gradle/repo/ #cannot git in an existing fold, so git and then copy
+ 
+script: 
+  - docker exec build bash -c "cd home/gradle/repo/src/Clients/ && ./gradlew --gradle-user-home=/home/gradle/depends/ build"
+  - docker exec build bash -c "cd home/gradle/repo/src/Backend/OrderService/ && ./gradlew --gradle-user-home=/home/gradle/depends/ build"
