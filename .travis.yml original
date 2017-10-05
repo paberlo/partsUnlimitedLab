@@ -1,0 +1,48 @@
+language: java
+jdk: oraclejdk8
+before_script:
+  - chmod +x  $TRAVIS_BUILD_DIR/src/Backend/OrderService/gradlew
+  - chmod +x  $TRAVIS_BUILD_DIR/src/Clients/gradlew
+script: 
+  - cd  $TRAVIS_BUILD_DIR/src/Backend/OrderService
+  - ./gradlew build test
+  - cd  $TRAVIS_BUILD_DIR/src/Clients
+  - ./gradlew build
+
+  
+#######DEPLOY RELEASES IN GIT HUB if wished#######
+# due to a tiny error in travis, after deploying to git hub, 
+#this creates an untagged commit, which triggers another unncessary build  
+#branches:
+#  except:
+#    - /^untagged\..*/
+#  
+#deploy: 
+#  provider: releases # store built fuiles in git hub releases section 
+#  api_key:
+#    secure: "$API_KEY" #key created in git hub, and variable stored in my travis-ci.org account
+#  file_glob: true # this allows for wildcards in file names
+#  file:
+#     - '$TRAVIS_BUILD_DIR/src/Clients/build/libs/mrp*'
+#     - '$TRAVIS_BUILD_DIR/src/Backend/OrderService/build/libs/ordering*'
+#  skip_cleanup: true  
+#  on: 
+#    tags: master #deploy only when push in from master
+##################################################	
+
+#build docker images with builds and upload them to docker hub
+#env credentials are created in travs-ci.or 
+#after_success:
+   - cp $TRAVIS_BUILD_DIR/src/Clients/build/libs/*.war $TRAVIS_BUILD_DIR/docker/Clients/drop/
+   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+   - export REPO=partsunlimitedmrplab
+   - export TAG=web
+   - docker build -t $REPO/$TAG $TRAVIS_BUILD_DIR/docker/Clients
+   - docker tag $REPO/$TAG paberlo/$REPO:$TAG
+   - docker push paberlo/$REPO:$TAG
+   
+   - cp $TRAVIS_BUILD_DIR/src/Backend/OrderService/build/libs/ordering* $TRAVIS_BUILD_DIR/docker/Ordering/drop/
+   - export TAG=ordering
+   - docker build -t $REPO/$TAG $TRAVIS_BUILD_DIR/docker/Ordering
+   - docker tag $REPO/$TAG paberlo/$REPO:$TAG
+   - docker push paberlo/$REPO:$TAG
