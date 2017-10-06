@@ -1,14 +1,13 @@
 language: java
 jdk: oraclejdk8
 before_script:
-  - chmod +x  $TRAVIS_BUILD_DIR/src/Backend/OrderService/gradlew
-  - chmod +x  $TRAVIS_BUILD_DIR/src/Clients/gradlew
-script: 
-  - cd  $TRAVIS_BUILD_DIR/src/Backend/OrderService
+  - chmod +x $TRAVIS_BUILD_DIR/src/Backend/OrderService/gradlew
+  - chmod +x $TRAVIS_BUILD_DIR/src/Clients/gradlew
+script:
+  - cd $TRAVIS_BUILD_DIR/src/Backend/OrderService
   - ./gradlew build test
-  - cd  $TRAVIS_BUILD_DIR/src/Clients
+  - cd $TRAVIS_BUILD_DIR/src/Clients
   - ./gradlew build
-
   
 #######DEPLOY RELEASES IN GIT HUB if wished#######
 # due to a tiny error in travis, after deploying to git hub, 
@@ -30,9 +29,9 @@ script:
 #    tags: master #deploy only when push in from master
 ##################################################	
 
-#build docker images with builds and upload them to docker hub
+# build docker images with builds and upload them to docker hub
 #env credentials are created in travs-ci.or 
-#after_success:
+after_success:
    - cp $TRAVIS_BUILD_DIR/src/Clients/build/libs/*.war $TRAVIS_BUILD_DIR/docker/Clients/drop/
    - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
    - export REPO=partsunlimitedmrplab
@@ -40,7 +39,6 @@ script:
    - docker build -t $REPO/$TAG $TRAVIS_BUILD_DIR/docker/Clients
    - docker tag $REPO/$TAG paberlo/$REPO:$TAG
    - docker push paberlo/$REPO:$TAG
-   
    - cp $TRAVIS_BUILD_DIR/src/Backend/OrderService/build/libs/ordering* $TRAVIS_BUILD_DIR/docker/Ordering/drop/
    - export TAG=ordering
    - docker build -t $REPO/$TAG $TRAVIS_BUILD_DIR/docker/Ordering
